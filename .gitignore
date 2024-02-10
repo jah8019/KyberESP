@@ -41,6 +41,4 @@ ESPServer/test/
 *.app
 
 #FreeRTOS
-FreeRTOS*
-
 .DS_Store
