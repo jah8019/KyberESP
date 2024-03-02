@@ -3,9 +3,9 @@ using System.Text;
 
 class Program
 {
-    private const string IpAddress = "123.123.123.123"; // Replace this with the IP address of your Arduino board
+    private const string IpAddress = "192.168.178.149"; // Replace this with the IP address of your Arduino board
     private const int Port = 80; // Use the same port in the C++ code
-    private static readonly byte[] InitVector = {32, 19, 42, 33, 14, 61, 12, 91, 40, 74, 32, 17, 31, 78, 18, 0};
+    private static readonly byte[] InitVector = { 32, 19, 42, 33, 14, 61, 12, 91, 40, 74, 32, 17, 31, 78, 18, 0 };
 
     static void Main()
     {
@@ -15,7 +15,7 @@ class Program
         var stream = client.GetStream();
 
         var espCommunication = new EspCommunication(stream);
-        var espPublicKey = espCommunication.ReceivePublicKey();
+        var espPublicKey = espCommunication.ReceiveData();
         Console.WriteLine($"Received espPublicKey: {PrettyPrint(espPublicKey)}");
 
         var kyberEncryption = new KyberEncryption();
@@ -25,13 +25,13 @@ class Program
         var sharedSecret = encapsulatedSecret.GetSecret();
         Console.WriteLine($"Secret: {PrettyPrint(sharedSecret)}");
 
-        espCommunication.SendEncryptedData(cypherText);
+        espCommunication.SendData(cypherText);
 
         var plaintext = "This is an encrypted text";
         var aesEncryption = new AesEncryption();
         var encryptedText = aesEncryption.Encrypt(plaintext, sharedSecret, InitVector);
         Console.WriteLine($"Sending: {plaintext} as: {PrettyPrint(encryptedText)}");
-        espCommunication.SendEncryptedData(encryptedText);
+        espCommunication.SendData(encryptedText);
 
         stream.Close();
         client.Close();

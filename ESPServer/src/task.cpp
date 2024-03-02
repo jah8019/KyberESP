@@ -5,6 +5,7 @@ void LoopTask(void *pvParameters)
     WiFiServer *server = (WiFiServer *)pvParameters;
     WiFiClient client = server->available();
     AESLib aesLib;
+    
     uint8_t initVector[] = {32, 19, 42, 33, 14, 61, 12, 91, 40, 74, 32, 17, 31, 78, 18, 0};
 
     if (client)

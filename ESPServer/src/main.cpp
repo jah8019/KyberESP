@@ -4,8 +4,8 @@
 #include "task.h"
 #include "kyber/taskpriorities.h"
 
-const char *kSsid = "";
-const char *kPassword = "";
+const char *kSsid = "WLAN-001F3F7F02F5";
+const char *kPassword = "3MonateUrlaub";
 
 SemaphoreHandle_t xSemaphore = NULL;
 WiFiServer server(80);
